@@ -1,3 +1,9 @@
+### NOMBRES :
+- Miguel Perez
+- Roger Marquez
+- Juan Sebastian Ramirez G.
+
+
 # Proyecto 1 - Ordenamiento de un dataset grande (C++)
 
 Comparación de tres estrategias de ordenamiento sobre un dataset de 100.000
