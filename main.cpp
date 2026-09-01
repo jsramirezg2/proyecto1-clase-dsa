@@ -5,6 +5,7 @@
 #include <chrono>
 #include "heapsort.h"
 #include "avl.h"
+#include "quicksort.h"
 
 int main() {
     std::vector<std::string> data;
@@ -39,6 +40,13 @@ int main() {
     auto avlDuration = std::chrono::duration_cast<std::chrono::milliseconds>(avlEnd - avlStart);
     std::cout << "AVL sort completed in " << avlDuration.count() << " ms" << std::endl;
 
+    // Quick sort timing
+    auto quickStart = std::chrono::high_resolution_clock::now();
+    std::vector<std::string> quickSorted = quickSort(data);
+    auto quickEnd = std::chrono::high_resolution_clock::now();
+    auto quickDuration = std::chrono::duration_cast<std::chrono::milliseconds>(quickEnd - quickStart);
+    std::cout << "Quicksort completed in " << quickDuration.count() << " ms" << std::endl;
+
     if (heapSorted.size() > 0) {
         std::cout << "First 10 heap-sorted elements: ";
         for (int i = 0; i < 10 && i < (int)heapSorted.size(); i++)
@@ -55,6 +63,15 @@ int main() {
         std::cout << std::endl;
     } else {
         std::cout << "No AVL data to display" << std::endl;
+    }
+
+    if (quickSorted.size() > 0) {
+        std::cout << "First 10 quick-sorted elements: ";
+        for (int i = 0; i < 10 && i < (int)quickSorted.size(); i++)
+            std::cout << quickSorted[i] << " ";
+        std::cout << std::endl;
+    } else {
+        std::cout << "No quicksort data to display" << std::endl;
     }
 
     std::cout << "Original vector remains unchanged. Size: " << data.size() << std::endl;
