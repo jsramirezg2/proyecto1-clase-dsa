@@ -1,39 +1,33 @@
 #include "quicksort.h"
-#include <vector>
-#include <string>
+#include <algorithm>
 
-namespace {
-    void quickSortRecursive(std::vector<std::string>& arr, int left, int right) {
-        if (left >= right) return;
+// Ordena el trozo del arreglo entre las posiciones left y right
+void quickSortRecursive(std::vector<std::string>& arr, int left, int right) {
+    if (left >= right) return;
 
-        std::string pivot = arr[(left + right) / 2];
-        int i = left;
-        int j = right;
+    std::string pivot = arr[(left + right) / 2];
+    int i = left;
+    int j = right;
 
-        while (i <= j) {
-            while (arr[i] < pivot) i++;
-            while (arr[j] > pivot) j--;
+    // Deja los menores al pivote a la izquierda y los mayores a la derecha
+    while (i <= j) {
+        while (arr[i] < pivot) i++;
+        while (arr[j] > pivot) j--;
 
-            if (i <= j) {
-                std::string temp = arr[i];
-                arr[i] = arr[j];
-                arr[j] = temp;
-                i++;
-                j--;
-            }
+        if (i <= j) {
+            std::swap(arr[i], arr[j]);
+            i++;
+            j--;
         }
-
-        if (left < j) quickSortRecursive(arr, left, j);
-        if (i < right) quickSortRecursive(arr, i, right);
     }
+
+    quickSortRecursive(arr, left, j);
+    quickSortRecursive(arr, i, right);
 }
 
 std::vector<std::string> quickSort(const std::vector<std::string>& arr) {
-    std::vector<std::string> sorted = arr;
-    if (sorted.size() <= 1) {
-        return sorted;
-    }
-
-    quickSortRecursive(sorted, 0, static_cast<int>(sorted.size()) - 1);
+    std::vector<std::string> sorted = arr;  // copia para no tocar el original
+    if (sorted.size() > 1)
+        quickSortRecursive(sorted, 0, sorted.size() - 1);
     return sorted;
 }
