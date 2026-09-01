@@ -99,13 +99,26 @@ void borrarArbol(Nodo* nodo) {
     delete nodo;
 }
 
+// Se guarda la altura del ultimo arbol construido para el analisis de memoria
+static int ultimaAltura = 0;
+
 std::vector<std::string> avlSort(const std::vector<std::string>& arr) {
     Nodo* raiz = nullptr;
     for (int i = 0; i < (int)arr.size(); i++)
         raiz = insertar(raiz, arr[i]);
 
+    ultimaAltura = altura(raiz);
+
     std::vector<std::string> resultado;
     inOrden(raiz, resultado);
     borrarArbol(raiz);
     return resultado;
+}
+
+std::size_t avlTamanoNodo() {
+    return sizeof(Nodo);
+}
+
+int avlUltimaAltura() {
+    return ultimaAltura;
 }
